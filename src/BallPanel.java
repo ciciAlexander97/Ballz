@@ -2,7 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.*;
 public class BallPanel extends JPanel{
     public static final Color BACKGROUND = new Color(184, 119, 237);
     //private int x = 80;
@@ -13,13 +15,14 @@ public class BallPanel extends JPanel{
     //private int ySpeed2 = 3;
 
     //static Ball b1 = new Ball(30, 150, 20);
-    static Ball[] ballz = new Ball[1000];
+
+    static ArrayList<Ball> ballz = new ArrayList<Ball>();
     private final Ball silly;
 
     public BallPanel(){
         setBackground(BACKGROUND);
-        for(int i = 0;i<ballz.length;i++){
-            ballz[i] = new Ball();
+        for(int i = 0;i<ballz.size();i++){
+            ballz.add(new Ball());
         }
         silly = new Ball(100, 100, 100, 10, 10, new Color(112, 194, 105));
         this.setFocusable(true);
@@ -51,30 +54,79 @@ public class BallPanel extends JPanel{
 
             }
         });
+        this.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int mX = e.getX();
+                int mY = e.getY();
+                for(int i=0;i<ballz.size();i++){
+                    if(mX>=ballz.get(i).getX() && mX<=ballz.get(i).getX()+ballz.get(i).getSize()
+                    && mY>=ballz.get(i).getY() && mY<=ballz.get(i).getY()+ballz.get(i).getSize()){
+                        ballz.remove(i);
+                    }
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
 
     }
+
+    public void addBall(){ballz.add(new Ball());}
 
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
-        g.setColor(silly.getColor());
-        g.fillOval(silly.getX(), silly.getY(), silly.getSize(), silly.getSize());
-        for(int i = 0;i<ballz.length;i++){
-            g.setColor(ballz[i].getColor());
-            g.fillOval(ballz[i].getX(), ballz[i].getY(), ballz[i].getSize(), ballz[i].getSize());
-            ballz[i].moveX(ballz[i].getxSpeed());
-            ballz[i].moveY(ballz[i].getySpeed());
-            //if(ballz[i].getX() >= getWidth()-ballz[i].getSize() || ballz[i].getX()<=0){
-            //    ballz[i].setxSpeed(ballz[i].getxSpeed()*-1);
+        //g.setColor(silly.getColor());
+        //g.fillOval(silly.getX(), silly.getY(), silly.getSize(), silly.getSize());
+        for(int i = 0;i<ballz.size();i++){
+            g.setColor(ballz.get(i).getColor());
+            g.fillOval(ballz.get(i).getX(), ballz.get(i).getY(), ballz.get(i).getSize(), ballz.get(i).getSize());
+            ballz.get(i).moveX(ballz.get(i).getxSpeed());
+            ballz.get(i).moveY(ballz.get(i).getySpeed());
+            if(ballz.get(i).getX() >= getWidth()-ballz.get(i).getSize() || ballz.get(i).getX()<=0){
+                ballz.get(i).setxSpeed(-ballz.get(i).getxSpeed());
+                int r = (int)(Math.random()*2);
+                if(r==0){
+                    ballz.get(i).setySpeed(-(int)(Math.random() * 2 + 1));
+                }
+                else{
+                    ballz.get(i).setySpeed((int)(Math.random() * 2 + 1));
+                }
+            }
+            //if(ballz.get(i).getX()>=getWidth()){
+            //    ballz.get(i).setX(-ballz.get(i).getSize());
             //}
-            if(ballz[i].getX()>=getWidth()){
-                ballz[i].setX(-ballz[i].getSize());
-            }
-            if(ballz[i].getX()<-ballz[i].getSize()){
-                ballz[i].setX(getWidth());
-            }
-            if(ballz[i].getY() >= getHeight()-ballz[i].getSize() || ballz[i].getY()<=0){
-                ballz[i].setySpeed(ballz[i].getySpeed()*-1);
+            //if(ballz.get(i).getX()<-ballz.get(i).getSize()){
+            //    ballz.get(i).setX(getWidth());
+            //}
+            if(ballz.get(i).getY() >= getHeight()-ballz.get(i).getSize() || ballz.get(i).getY()<=0){
+                ballz.get(i).setySpeed(-ballz.get(i).getySpeed());
+                int r2 = (int)(Math.random()*2);
+                if(r2==0){
+                    ballz.get(i).setxSpeed(-(int)(Math.random() * 2 + 1));
+                }
+                else{
+                    ballz.get(i).setxSpeed((int)(Math.random() * 2 + 1));
+                }
             }
         }
 
@@ -92,7 +144,7 @@ public class BallPanel extends JPanel{
         }
 
         try{
-            Thread.sleep(2);
+            Thread.sleep(5);
         }
         catch(Exception e){
             System.out.println(e);

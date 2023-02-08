@@ -8,14 +8,14 @@ public class Ball{
         //this.y = 450;
         x = (int)(Math.random()*500)+200;
         y = (int)(Math.random()*500)+200;
-        this.size = (int)((Math.random()*70)+10);
-        int randSX = (int)((Math.random()*15)+1);
+        this.size = (int)((Math.random()*70)+40);
+        int randSX = (int)((Math.random()*2)+1);
         int negative1 = (int)(Math.random()*2);
         if(negative1 == 1){
             randSX*= -1;
         }
         this.xSpeed = randSX;
-        int randSY = (int)((Math.random()*3)+1);
+        int randSY = (int)((Math.random()*2)+1);
         int negative2 = (int)(Math.random()*2);
         if(negative2 == 1){
             randSY*= -1;
