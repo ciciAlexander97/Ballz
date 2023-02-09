@@ -8,7 +8,7 @@ public class Ball{
         //this.y = 450;
         x = (int)(Math.random()*500)+200;
         y = (int)(Math.random()*500)+200;
-        this.size = (int)((Math.random()*70)+40);
+        this.size = (int)((Math.random()*70)+50);
         int randSX = (int)((Math.random()*2)+1);
         int negative1 = (int)(Math.random()*2);
         if(negative1 == 1){

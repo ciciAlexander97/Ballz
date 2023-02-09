@@ -28,9 +28,7 @@ public class BallPanel extends JPanel{
         this.setFocusable(true);
         this.addKeyListener(new KeyListener() {
             @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
+            public void keyTyped(KeyEvent e) {}
 
             @Override
             public void keyPressed(KeyEvent e) {
@@ -50,42 +48,28 @@ public class BallPanel extends JPanel{
             }
 
             @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
+            public void keyReleased(KeyEvent e) {}
         });
         this.addMouseListener(new MouseListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(MouseEvent e) {}
+            @Override
+            public void mousePressed(MouseEvent e) {
                 int mX = e.getX();
                 int mY = e.getY();
                 for(int i=0;i<ballz.size();i++){
                     if(mX>=ballz.get(i).getX() && mX<=ballz.get(i).getX()+ballz.get(i).getSize()
-                    && mY>=ballz.get(i).getY() && mY<=ballz.get(i).getY()+ballz.get(i).getSize()){
+                            && mY>=ballz.get(i).getY() && mY<=ballz.get(i).getY()+ballz.get(i).getSize()){
                         ballz.remove(i);
                     }
                 }
             }
-
             @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
+            public void mouseReleased(MouseEvent e) {}
             @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
+            public void mouseEntered(MouseEvent e) {}
             @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
+            public void mouseExited(MouseEvent e) {}
         });
 
     }
@@ -144,7 +128,7 @@ public class BallPanel extends JPanel{
         }
 
         try{
-            Thread.sleep(5);
+            Thread.sleep(10);
         }
         catch(Exception e){
             System.out.println(e);
